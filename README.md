@@ -1,5 +1,5 @@
 # Cards
-## Simulation of deck of cards with poker-playing functionality
+## Simulation of a deck of cards with poker-playing functionality
 ###### Usage
 1. Open command terminal
 2. Run `make`
