@@ -15,7 +15,8 @@ public:
 	// Main Deck functions
 	void shuffle();
 	Card deal();
-	void dealAll();
+	void dealUp();
+	void burn();
 
 	// Clean-up functions
 	void reset();
@@ -25,10 +26,12 @@ public:
 	int size();
 	void print();
 
+	std::vector<Card> community;
+
 private:
 	std::vector<Card> deck;
 	std::vector<Card>::iterator next;
-	std::vector<Card> community;
+	std::vector<Card> discard;
 };
 
 #endif

@@ -13,7 +13,10 @@ public:
 	void deal(int num);
 
 	// Add num cards to community cards
-	void dealAll(int num);
+	void dealUp(int num);
+
+	// Discard num cards from deck
+	void burn(int num);
 
 	// Pokergame information
 	void print();

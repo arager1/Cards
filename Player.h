@@ -9,7 +9,6 @@ public:
 	Player(std::string n);
 
 	// Add or remove Cards
-	void draw(Deck *d);
 	virtual void addCard(Card c);
 	virtual void clearHand();
 

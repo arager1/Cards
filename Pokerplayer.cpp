@@ -7,6 +7,11 @@ Pokerplayer::Pokerplayer(std::string n, int buyIn) : Player(n), money(buyIn) { c
 
 void Pokerplayer::addCard(Card c){
 	hand.push_back(c);
+	showCard(c);
+}
+
+void Pokerplayer::showCard(Card c){
+	cardPool.push_back(c);
 	expose(c);
 }
 
@@ -18,11 +23,20 @@ void Pokerplayer::printHand(){
 	for (auto it = hand.begin(); it != hand.end(); it++){
 		line = "\t" + it->cardString();
 		if (best_it != bestHand.end()) {
-			line.append("    \t\t" + (*best_it).cardString());
+			line.append("    \t\t" + best_it->cardString());
 			best_it++;
 		}
 		else line.append("    \t\t===============");
 		std::cout << line << std::endl;
+	}
+	line = "\t===============";
+	if (best_it != bestHand.end()) {
+		line.append("    \t\t" + best_it->cardString());
+		best_it++;
+	}
+	std::cout << line << std::endl;
+	for (; best_it !=bestHand.end(); best_it++){
+		std::cout << "\t===============    \t\t" << best_it->cardString() << std::endl;
 	}
 	line = "\t===============    \t\t===============\n\n\t" + handMsg + "\n";
 	std::cout << line << std::endl;
@@ -38,6 +52,7 @@ void Pokerplayer::printHandMin(){
 void Pokerplayer::clearHand(){
 	hand.clear();
 	bestHand.clear();
+	cardPool.clear();
 	pokerhand = HighCard;
 	handMsg = name + " has an empty hand";
 	for (int i = 0; i < numRanks; i++) rankbin[i] = 0;
@@ -92,6 +107,7 @@ bool Pokerplayer::operator==(const Pokerplayer &rhs) const{
 void Pokerplayer::expose(Card c){
 
 	std::sort (hand.begin(), hand.end(), std::greater<Card>());
+	std::sort (cardPool.begin(), cardPool.end(), std::greater<Card>());
 	bestHand.clear();
 	handMsg = name + " has a ";
 
@@ -145,7 +161,7 @@ void Pokerplayer::expose(Card c){
 		Rank target = straightHighRank;
 		bool rankInFlush[5] = {false, false, false, false, false};
 		int count = 0;
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (it->getRank() == target){
 				if (it->getSuit() == flushSuit and bestHand.size() < 5){
 					rankInFlush[count] = true;
@@ -174,10 +190,10 @@ void Pokerplayer::expose(Card c){
 	// Four of a Kind
 	else if (numFour > 0) {
 		pokerhand = FourOfAKind;
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (rankbin[it->getRank() - 2] == 4) bestHand.push_back(*it);
 		}
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (rankbin[it->getRank() - 2] != 4 and bestHand.size() < 5) bestHand.push_back(*it);
 		}
 		handMsg.append(handString[FourOfAKind] + ", four " + rankString[bestHand.front().getRank()] + "s and a " + rankString[bestHand.back().getRank()] + " kicker");
@@ -187,13 +203,13 @@ void Pokerplayer::expose(Card c){
 	else if (numThree > 1 or (numThree > 0 and numPairs > 0)) {
 		pokerhand = FullHouse;
 		Rank threeRank;
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (rankbin[it->getRank() - 2] == 3 and bestHand.size() < 3) {
 				bestHand.push_back(*it);
 				threeRank = it->getRank();
 			}
 		}
-		for (auto it = hand.begin(); it != hand.end(); it++) {
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++) {
 			if (it->getRank() != threeRank and rankbin[it->getRank() - 2] >= 2 and bestHand.size() < 5) bestHand.push_back(*it);
 		}
 		handMsg.append(handString[FullHouse] + ", " + rankString[bestHand.front().getRank()] + "s over " + rankString[bestHand.back().getRank()] + "s");
@@ -202,7 +218,7 @@ void Pokerplayer::expose(Card c){
 	// Flush
 	else if (hasFlush) {
 		pokerhand = Flush;
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (it->getSuit() == flushSuit) bestHand.push_back(*it);
 		}
 		handMsg.append(rankString[bestHand.front().getRank()] + " high " + handString[Flush]);
@@ -212,11 +228,11 @@ void Pokerplayer::expose(Card c){
 	else if (hasStraight) {
 		pokerhand = Straight;
 		Rank target = straightHighRank;
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (it->getRank() == target and bestHand.size() < 5) {
 				bestHand.push_back(*it);
-				if (target == Two and hand[0].getRank() == Ace) {
-					bestHand.push_back(hand[0]);
+				if (target == Two and cardPool[0].getRank() == Ace) {
+					bestHand.push_back(cardPool[0]);
 				}
 				else target = Rank(target - 1);
 			}
@@ -228,13 +244,13 @@ void Pokerplayer::expose(Card c){
 	else if (numThree > 0) {
 		pokerhand = ThreeOfAKind;
 		Rank threeRank;
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (rankbin[it->getRank() - 2] == 3) {
 				bestHand.push_back(*it);
 				threeRank = it->getRank();
 			}
 		}
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (it->getRank() != threeRank and bestHand.size() < 5) bestHand.push_back(*it);
 		}
 		handMsg.append(handString[ThreeOfAKind] + ", three " + rankString[bestHand.front().getRank()] + "s and a " + rankString[bestHand.end()[-2].getRank()] + " " + rankString[bestHand.back().getRank()] + " kicker");
@@ -244,19 +260,19 @@ void Pokerplayer::expose(Card c){
 	else if (numPairs > 1) {
 		pokerhand = TwoPair;
 		Rank firstRank, secondRank;
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (rankbin[it->getRank() - 2] == 2 and bestHand.size() < 2) {
 				bestHand.push_back(*it);
 				firstRank = it->getRank();
 			}
 		}
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (it->getRank() != firstRank and rankbin[it->getRank() - 2] == 2 and bestHand.size() < 4) {
 				bestHand.push_back(*it);
 				secondRank = it->getRank();
 			}
 		}
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (it->getRank() != firstRank and it->getRank() != secondRank and bestHand.size() < 5) bestHand.push_back(*it); 
 		}
 		handMsg.append(handString[TwoPair] + ", " + rankString[bestHand.front().getRank()] + "s over " + rankString[bestHand.end()[-2].getRank()] + "s and a " + rankString[bestHand.back().getRank()] + " kicker");
@@ -266,13 +282,13 @@ void Pokerplayer::expose(Card c){
 	else if (numPairs == 1) {
 		pokerhand = Pair;
 		Rank pairRank;
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (rankbin[it->getRank() - 2] == 2 and bestHand.size() < 2) {
 				bestHand.push_back(*it);
 				pairRank = it->getRank();
 			}
 		}
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (it->getRank() != pairRank and bestHand.size() < 5) bestHand.push_back(*it);
 		}
 		handMsg.append(handString[Pair] + " of " + rankString[bestHand.front().getRank()] + "s");
@@ -281,7 +297,7 @@ void Pokerplayer::expose(Card c){
 	// High Card
 	else {
 		pokerhand = HighCard;
-		for (auto it = hand.begin(); it != hand.end(); it++){
+		for (auto it = cardPool.begin(); it != cardPool.end(); it++){
 			if (bestHand.size() < 5) bestHand.push_back(*it);
 		}
 		handMsg.append(rankString[bestHand.front().getRank()] + " " + handString[HighCard]);

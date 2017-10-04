@@ -75,7 +75,10 @@ void Deck::loadEuchre(){
 
 int randomFunc (int i) { return std::rand()%i; }
 
-void Deck::shuffle() { random_shuffle(next, deck.end(), randomFunc); }
+void Deck::shuffle() {
+	random_shuffle(next, deck.end(), randomFunc);
+	next = deck.begin();
+}
 
 Card Deck::deal() {
 	if (next == deck.end()) reset();
@@ -84,24 +87,31 @@ Card Deck::deal() {
 	return c;
 }
 
-void Deck::dealAll() {
+void Deck::dealUp() {
 	if (next == deck.end()) reset();
 	community.push_back(*next);
+	next++;
+}
+
+void Deck::burn() {
+	if (next == deck.end()) reset();
+	discard.push_back(*next);
 	next++;
 }
 
 void Deck::reset() {
 	next = deck.begin();
 	community.clear();
+	discard.clear();
 }
 
 void Deck::clear() { 
 	deck.clear();
 	community.clear();
+	discard.clear();
 }
 
-
-int Deck::size(){ return deck.size(); }
+int Deck::size(){ return deck.end() - next; }
 
 void Deck::print(){
 	std::cout << "\n\tTop of Deck\n\t===============" << std::endl;

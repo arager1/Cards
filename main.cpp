@@ -11,7 +11,15 @@ int main(){
 	game.addPlayer("Danielle", 10000);
 	game.addPlayer("Logan", 10000);
 
-	game.deal(7);
+	// game.deal(7);
+	game.deal(2);
+	game.burn(1);
+	game.dealUp(3);
+	game.burn(1);
+	game.dealUp(1);
+	game.burn(1);
+	game.dealUp(1);
+
 
 	game.print();
 

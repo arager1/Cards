@@ -6,10 +6,6 @@
 
 Player::Player(std::string n) : name(n) {}
 
-void Player::draw(Deck *d){
-	if (d->size() > 0) addCard(d->deal());
-}
-
 void Player::addCard(Card c){
 	hand.push_back(c);
 }

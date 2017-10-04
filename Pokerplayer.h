@@ -18,6 +18,7 @@ public:
 
 	// Overload Player's addCard() to call expose()
 	void addCard(Card c);
+	void showCard(Card c);
 
 	// Pokerplayer information
 	void printHand();
@@ -39,6 +40,7 @@ public:
 	std::vector<Card> bestHand;
 	
 private:
+	std::vector<Card> cardPool;
 	int rankbin[numRanks] = {0};
 	int suitbin[numSuits] {0};
 
