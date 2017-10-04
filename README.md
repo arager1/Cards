@@ -4,12 +4,8 @@
 1. Open command terminal
 2. Run `make`
 3. Run `./poker`
-###### Testing
-1. Open command terminal
-2. Run `make testplayer`
-3. Run `./poker`
 ###### Example Output
-
+```
 			Community Cards
 			===============
 			Queen of Clubs
@@ -65,3 +61,17 @@
 	===============    		===============
 
 	Logan has a Queen High Card
+```
+###### Testing
+1. Open command terminal
+2. Run `make testplayer`
+3. Run `./poker`
+###### Example Output
+```
+	High Kicker :   	Success!
+	Straight and Pair :   	Success!
+	Two Three Kinds :   	Success!
+	Three pairs :   	Success!
+	Six Straight :   	Success!
+	Ace-Low straight :   	Success!
+```
