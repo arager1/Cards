@@ -12,56 +12,56 @@
 
 			Community Cards
 			===============
-			King of Clubs
-			King of Hearts
-			Seven of Hearts
-			Seven of Clubs
-			Nine of Hearts
+			Queen of Clubs
+			Eight of Diamonds
+			Ten of Clubs
+			Four of Diamonds
+			Nine of Diamonds
 			===============
-
-	Alec's Hand			Poker Hand
-	===============			===============
-	King of Spades    		King of Spades
-	Nine of Diamonds    		King of Hearts
-	===============    		King of Clubs
-	===============    		Nine of Hearts
-	===============    		Nine of Diamonds
-	===============    		===============
-
-	Alec has a Full House, Kings over Nines
-
 
 	Nick's Hand			Poker Hand
 	===============			===============
-	Jack of Spades    		King of Hearts
-	Four of Hearts    		King of Clubs
-	===============    		Seven of Hearts
-	===============    		Seven of Clubs
-	===============    		Jack of Spades
+	Queen of Diamonds    		Queen of Clubs
+	Jack of Clubs    		Jack of Clubs
+	===============    		Ten of Clubs
+	===============    		Nine of Diamonds
+	===============    		Eight of Diamonds
 	===============    		===============
 
-	Nick has a Two Pair, Kings over Sevens and a Jack kicker
+	Nick has a Queen high Straight
+
+
+	Alec's Hand			Poker Hand
+	===============			===============
+	Queen of Spades    		Queen of Spades
+	Three of Spades    		Queen of Clubs
+	===============    		Ten of Clubs
+	===============    		Nine of Diamonds
+	===============    		Eight of Diamonds
+	===============    		===============
+
+	Alec has a Pair of Queens
 
 
 	Danielle's Hand			Poker Hand
 	===============			===============
-	Six of Spades    		King of Hearts
-	Five of Hearts    		King of Clubs
-	===============    		Seven of Hearts
-	===============    		Seven of Clubs
-	===============    		Nine of Hearts
+	King of Diamonds    		King of Diamonds
+	Five of Spades    		Queen of Clubs
+	===============    		Ten of Clubs
+	===============    		Nine of Diamonds
+	===============    		Eight of Diamonds
 	===============    		===============
 
-	Danielle has a Two Pair, Kings over Sevens and a Nine kicker
+	Danielle has a King High Card
 
 
 	Logan's Hand			Poker Hand
 	===============			===============
-	Five of Clubs    		King of Hearts
-	Three of Hearts    		King of Clubs
-	===============    		Seven of Hearts
-	===============    		Seven of Clubs
-	===============    		Nine of Hearts
+	Three of Diamonds    		Queen of Clubs
+	Two of Hearts    		Ten of Clubs
+	===============    		Nine of Diamonds
+	===============    		Eight of Diamonds
+	===============    		Four of Diamonds
 	===============    		===============
 
-	Logan has a Two Pair, Kings over Sevens and a Nine kicker
+	Logan has a Queen High Card
